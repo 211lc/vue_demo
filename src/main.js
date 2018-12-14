@@ -1,12 +1,13 @@
+// 这里的Vue必须大写
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
-
-Vue.config.productionTip = false
+// 导入mui样式
+import './lib/mui/css/mui.min.css'
+// 按需导入mint-ui
+import { Header } from 'mint-ui';
+Vue.component(Header.name, Header);
 
 new Vue({
-  router,
-  store,
+  el: '#app',
   render: h => h(App)
-}).$mount('#app')
+})
