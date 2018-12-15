@@ -1,23 +1,18 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
+import VueRouter from 'vue-router'
+// 导入路由组件
+import HomeContainer from './components/tabbar/HomeContainer'
+import MemberContainer from './components/tabbar/MemberContainer'
+import SearchContainer from './components/tabbar/SearchContainer'
+import ShopcarContainer from './components/tabbar/ShopcarContainer'
 
-Vue.use(Router)
-
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
+const router = new VueRouter({
+  routes: [  // 设置路由规则
+    {path: '/home', component: HomeContainer},
+    {path: '/member', component: MemberContainer},
+    {path: '/search', component: SearchContainer},
+    {path: '/shopcar', component: ShopcarContainer}
+  ],
+  linkActiveClass: 'mui-active' // 修改默认的active样式
 })
+
+export default router
