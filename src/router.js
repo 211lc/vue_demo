@@ -7,6 +7,7 @@ import ShopcarContainer from './components/tabbar/ShopcarContainer'
 
 const router = new VueRouter({
   routes: [  // 设置路由规则
+    {path: '/', redirect: '/home'}, // 重定向，默认打开home首页
     {path: '/home', component: HomeContainer},
     {path: '/member', component: MemberContainer},
     {path: '/search', component: SearchContainer},
