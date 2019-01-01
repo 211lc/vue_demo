@@ -1,14 +1,14 @@
 <template>
   <div class="cmt-container">
     <h3>发表评论</h3>
-    <textarea placeholder="请输入要发表的内容(最多可输入120字符)" maxlength="120"></textarea>
+    <textarea placeholder="请输入要发表的内容(最多可输入120字符)" maxlength="120" v-model="msg"></textarea>
     <!-- 按钮 -->
-    <mt-button size="large" type="primary">提交评论</mt-button>
+    <mt-button size="large" type="primary" @click="postComment">提交评论</mt-button>
     <!-- 评论div -->
     <div class="cmt-list">
       <div class="cmt-item" v-for="(comment, index) in comments" :key="index">
         <div class="cmt-title">
-          第{{ index }}楼&nbsp;&nbsp;
+          第{{ index + 1 }}楼&nbsp;&nbsp;
           用户:{{ comment.user_name }}&nbsp;&nbsp;
           发表时间:{{ comment.add_time | dateFormat }}
         </div>
@@ -29,7 +29,8 @@ export default {
   data() {
     return {
       comments: [],
-      pageIndex: 1 // 默认展示第一页数据
+      pageIndex: 1, // 默认展示第一页数据
+      msg: "" // 评论内容
     };
   },
   props: ["id"],
@@ -52,6 +53,33 @@ export default {
         })
         .catch(error => {
           Toast("获取数据失败，请稍后再试");
+        });
+    },
+    postComment() {
+      // 发表评论
+      if (this.msg.trim().length === 0) {
+        // 判断评论是否为空
+        return Toast("评论内容不能为空");
+      }
+      this.$axios
+        .post("api/postcomment/" + this.$route.params.id, {
+          content: this.msg.trim()
+        })
+        .then(response => {
+          var demo_comment = {
+            // 自己封装数据
+            user_name: "匿名用户test",
+            add_time: Date.now(),
+            content: this.msg.trim()
+          };
+          if (response.data.status === 0) {
+            // 提交评论成功
+            this.comments.unshift(demo_comment);
+            this.msg = ""; // 清空评论
+          }
+        })
+        .catch(error => {
+          Toast("发生未知错误");
         });
     }
   }
