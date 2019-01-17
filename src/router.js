@@ -10,6 +10,8 @@ import PhotoList from './components/photos/PhotoList'
 import Photoinfo from './components/photos/Photoinfo'
 import Goodslist from './components/goods/Goodslist'
 import GoodsInfo from './components/goods/GoodsInfo'
+import GoodsDesc from './components/goods/GoodsDesc'
+import GoodsComment from './components/goods/GoodsComment'
 
 const router = new VueRouter({
   routes: [  // 设置路由规则
@@ -23,7 +25,9 @@ const router = new VueRouter({
     { path: '/home/photolist', component: PhotoList },
     { path: '/home/photoinfo/:id', component: Photoinfo },
     { path: '/home/goodslist', component: Goodslist },
-    { path: '/home/goodsinfo/:id', component: GoodsInfo }
+    { path: '/home/goodsinfo/:id', component: GoodsInfo },
+    { path: '/home/goodsdesc/:id', component: GoodsDesc, name: 'goodsdesc' },
+    { path: '/home/goodscomment/:id', component: GoodsComment, name: 'goodscomment' }
   ],
   linkActiveClass: 'mui-active', // 修改默认的active样式
   scrollBehavior(to, from, savedPosition) { // vue-router打开新页面强制到顶部

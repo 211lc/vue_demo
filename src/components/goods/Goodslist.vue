@@ -1,6 +1,11 @@
 <template>
   <div class="goods-list">
-    <div class="goods-item" v-for="(item, index) in goodsList" :key="index" @click="goDetail(item.id)">
+    <div
+      class="goods-item"
+      v-for="(item, index) in goodsList"
+      :key="index"
+      @click="goDetail(item.id)"
+    >
       <img :src="item.img_url">
       <h1 class="title">{{ item.title }}</h1>
       <div class="info">
@@ -23,8 +28,8 @@ export default {
   data() {
     return {
       pageindex: 1, // 分页的页数
-      goodsList: [], // 存放商品列表
-    }
+      goodsList: [] // 存放商品列表
+    };
   },
   created() {
     this.getGoodsList();
@@ -32,10 +37,11 @@ export default {
   methods: {
     getGoodsList() {
       // 获取商品列表数据
-      this.$axios.get('api/getgoods?pageindex=' + this.pageindex).then(response => {
-        this.goodsList = this.goodsList.concat(response.data.message);
-        console.log(this.goodsList);
-      })
+      this.$axios
+        .get("api/getgoods?pageindex=" + this.pageindex)
+        .then(response => {
+          this.goodsList = this.goodsList.concat(response.data.message);
+        });
     },
     getMore() {
       // 加载更多
@@ -44,10 +50,10 @@ export default {
     },
     goDetail(id) {
       // 跳转到商品详情页面
-      this.$router.push('/home/goodsinfo/' + id);
+      this.$router.push("/home/goodsinfo/" + id);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
